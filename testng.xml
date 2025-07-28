@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="FlightBookingAutomationSuite" parallel="tests" thread-count="2">
+    <listeners>
+        <listener class-name="com.flightbooking.listeners.ExtentReporterNG" />
+    </listeners>
+    <test name="UI Tests">
+        <classes>
+            <class name="com.flightbooking.runners.TestRunner"/>
+        </classes>
+    </test>
+</suite>
