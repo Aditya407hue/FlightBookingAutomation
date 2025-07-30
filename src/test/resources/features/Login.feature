@@ -70,3 +70,27 @@ Feature: Login Module Functionality
     When User enters special characters "pass!@#" in password field
     And Clicks on "Login" button
     Then An error message should appear
+
+    @Login
+      Scenario: Login with missing captcha
+        Given User is on the Login page
+        When User enters valid username "flightadmin" and password "flightadmin"
+        And Leaves captcha field empty
+        And Clicks on "Login" button
+        Then An error message for "captcha" field should appear
+
+      @Login
+      Scenario: Login with invalid captcha
+        Given User is on the Login page
+        When User enters valid username "flightadmin" and password "flightadmin"
+        And Enters invalid captcha "wrongcaptcha"
+        And Clicks on "Login" button
+        Then An error message for "captcha" field should appear
+
+      @Login
+      Scenario: Login with valid captcha
+        Given User is on the Login page
+        When User enters valid username "flightadmin" and password "flightadmin"
+        And Enters valid captcha "validcaptcha"
+        And Clicks on "Login" button
+        Then User should be successfully redirected to the home page

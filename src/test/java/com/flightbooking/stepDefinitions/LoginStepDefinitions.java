@@ -123,4 +123,23 @@ public class LoginStepDefinitions {
         Assert.assertTrue(errorMessage.toLowerCase().contains(fieldName.toLowerCase()) || errorMessage.toLowerCase().contains("required"),
                 "Error message for " + fieldName + " is not relevant or not found: " + errorMessage);
     }
+
+    @And("Leaves captcha field empty")
+    public void leavesCaptchaFieldEmpty() {
+        LoggerUtil.info("Leaving captcha field empty.");
+        loginPage.enterCaptcha("");
+    }
+
+    @And("Enters invalid captcha {string}")
+    public void entersInvalidCaptcha(String captcha) {
+        LoggerUtil.info("Entering invalid captcha: " + captcha);
+        loginPage.enterCaptcha("captcha");
+    }
+
+    @And("Enters valid captcha {string}")
+    public void entersValidCaptcha(String captcha) {
+        LoggerUtil.info("Entering valid captcha: " + captcha);
+        loginPage.enterCaptcha();
+    }
+
 }

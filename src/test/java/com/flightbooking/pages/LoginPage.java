@@ -63,4 +63,31 @@ public class LoginPage {
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
+
+    public void enterCaptcha() {
+        WebElement captchaTextElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("code")));
+        String captchaText = captchaTextElement.getText();
+
+        // Enter captcha text into input box
+        WebElement captchaInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("captcha")));
+        captchaInput.clear();
+        captchaInput.sendKeys(captchaText);
+
+        // Click the validate button
+        WebElement validateButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("captchaBtn")));
+        validateButton.click();
+    }
+    public void enterCaptcha(String captchaText) {
+//        WebElement captchaTextElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("code")));
+//        String captchaText = captchaTextElement.getText();
+
+        // Enter captcha text into input box
+        WebElement captchaInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("captcha")));
+        captchaInput.clear();
+        captchaInput.sendKeys(captchaText);
+
+        // Click the validate button
+        WebElement validateButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("captchaBtn")));
+        validateButton.click();
+    }
 }
