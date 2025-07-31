@@ -2,7 +2,7 @@ package com.flightbooking.utils;
 
 import java.io.FileReader;
 import java.io.IOException;
-
+import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import java.util.Properties;
 
@@ -23,6 +23,7 @@ public class WebDriverFactory {
         switch(browser)
         {
             case "chrome":
+            	WebDriverManager.chromedriver().setup();
                 driver=new ChromeDriver();
                 break;
             case "edge":

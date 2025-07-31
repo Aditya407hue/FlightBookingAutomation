@@ -1,3 +1,5 @@
+@Booking
+
 Feature: Flight Ticket Booking
 
   Background:

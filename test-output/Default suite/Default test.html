@@ -1,0 +1,403 @@
+<html>
+<head>
+<title>TestNG:  Default test</title>
+<link href="../testng.css" rel="stylesheet" type="text/css" />
+<link href="../my-testng.css" rel="stylesheet" type="text/css" />
+
+<style type="text/css">
+.log { display: none;} 
+.stack-trace { display: none;} 
+</style>
+<script type="text/javascript">
+<!--
+function flip(e) {
+  current = e.style.display;
+  if (current == 'block') {
+    e.style.display = 'none';
+    return 0;
+  }
+  else {
+    e.style.display = 'block';
+    return 1;
+  }
+}
+
+function toggleBox(szDivId, elem, msg1, msg2)
+{
+  var res = -1;  if (document.getElementById) {
+    res = flip(document.getElementById(szDivId));
+  }
+  else if (document.all) {
+    // this is the way old msie versions work
+    res = flip(document.all[szDivId]);
+  }
+  if(elem) {
+    if(res == 0) elem.innerHTML = msg1; else elem.innerHTML = msg2;
+  }
+
+}
+
+function toggleAllBoxes() {
+  if (document.getElementsByTagName) {
+    d = document.getElementsByTagName('div');
+    for (i = 0; i < d.length; i++) {
+      if (d[i].className == 'log') {
+        flip(d[i]);
+      }
+    }
+  }
+}
+
+// -->
+</script>
+
+</head>
+<body>
+<h2 align='center'>Default test</h2><table border='1' align="center">
+<tr>
+<td>Tests passed/Failed/Skipped:</td><td>0/27/0</td>
+</tr><tr>
+<td>Started on:</td><td>Thu Jul 31 13:39:04 IST 2025</td>
+</tr>
+<tr><td>Total time:</td><td>15 seconds (15322 ms)</td>
+</tr><tr>
+<td>Included groups:</td><td></td>
+</tr><tr>
+<td>Excluded groups:</td><td></td>
+</tr>
+</table><p/>
+<small><i>(Hover the method name to see the test class name)</i></small><p/>
+<table width='100%' border='1' class='invocation-failed'>
+<tr><td colspan='4' align='center'><b>FAILED TESTS</b></td></tr>
+<tr><td><b>Test method</b></td>
+<td width="30%"><b>Exception</b></td>
+<td width="10%"><b>Time (seconds)</b></td>
+<td><b>Instance</b></td>
+</tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Duplicate Booking Check", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NullPointerException: Cannot invoke &quot;String.toLowerCase()&quot; because the return value of &quot;java.util.Properties.getProperty(String)&quot; is null
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:22)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace622350701", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace622350701'><pre>java.lang.NullPointerException: Cannot invoke &quot;String.toLowerCase()&quot; because the return value of &quot;java.util.Properties.getProperty(String)&quot; is null
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:22)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>0</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Date", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NullPointerException: Cannot invoke &quot;String.toLowerCase()&quot; because the return value of &quot;java.util.Properties.getProperty(String)&quot; is null
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:22)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1291357924", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1291357924'><pre>java.lang.NullPointerException: Cannot invoke &quot;String.toLowerCase()&quot; because the return value of &quot;java.util.Properties.getProperty(String)&quot; is null
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:22)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>0</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Enter invalid email format", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace706342180", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace706342180'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Submit form with all fields blank", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace2049090524", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2049090524'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Enter special characters in Name", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace791611639", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace791611639'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>5</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Travel From/To", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1708721795", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1708721795'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>5</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Submit valid enquiry", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1117726459", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1117726459'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "TC-UI-TICKET-007 - Valid Phone Number", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1968146784", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1968146784'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>7</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Email", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace73130294", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace73130294'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>7</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "TC-UI-TICKET-006 - Invalid Email", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace253567310", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace253567310'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>7</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Phone Number", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1273403896", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1273403896'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>7</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Date", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1012722331", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1012722331'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>7</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Travel From/To", "Flight Ticket Booking"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace140989088", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace140989088'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>8</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Enter message longer than 500 characters", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1855781733", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1855781733'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>4</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Submit form with invalid phone number", "Enquiry Form Validations"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1989156566", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1989156566'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Flight Number", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1193842599", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1193842599'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Flight Name", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace785519170", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace785519170'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Flight Type", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace233773739", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace233773739'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Valid Flight Name", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1647485915", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1647485915'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Flight Number", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1985041750", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1985041750'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Captcha (TC-UI-LOGIN-005)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace197343449", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace197343449'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>4</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Successful Login with Valid Credentials (TC-UI-LOGIN-001)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace391351559", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace391351559'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>5</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Invalid Flight Type", "Flight Search Functionality"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace361576546", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace361576546'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>6</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Remember Me On This Computer Checkbox (TC-UI-LOGIN-006)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace1355662200", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace1355662200'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>3</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Unsuccessful Login with Invalid Username (TC-UI-LOGIN-002)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace17501701", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace17501701'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>6</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Navigate to Forgot Password page (TC-UI-LOGIN-004)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace2096659521", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace2096659521'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>6</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+<tr>
+<td title='com.flightbooking.runners.TestRunner.runScenario()'><b>runScenario</b><br>Test class: com.flightbooking.runners.TestRunner<br>Test method: Runs Cucumber Scenarios<br>Parameters: "Unsuccessful Login with Invalid Password (TC-UI-LOGIN-003)", "Login"</td>
+<td><div><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div><a href='#' onClick='toggleBox("stack-trace133316054", this, "Click to show all stack frames", "Click to hide stack frames")'>Click to show all stack frames</a>
+<div class='stack-trace' id='stack-trace133316054'><pre>java.lang.NoSuchMethodError: &apos;org.openqa.selenium.WebDriver$Timeouts org.openqa.selenium.WebDriver$Timeouts.implicitlyWait(java.time.Duration)&apos;
+	at com.flightbooking.utils.WebDriverFactory.initilizeBrowser(WebDriverFactory.java:40)
+	at com.flightbooking.hooks.Hooks.setup(Hooks.java:24)
+</pre></div></td>
+<td>6</td>
+<td>com.flightbooking.runners.TestRunner@5be1d0a4</td></tr>
+</table><p>
+</body>
+</html>

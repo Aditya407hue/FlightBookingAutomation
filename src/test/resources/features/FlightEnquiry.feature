@@ -1,4 +1,8 @@
+@Enquiry
+
 Feature: Enquiry Form Validations
+
+
 
   Scenario: Submit form with all fields blank
     Given User is on the enquiry form page
