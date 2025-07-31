@@ -1,53 +1,60 @@
 package com.flightbooking.utils;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
+import java.io.FileReader;
+import java.io.IOException;
+
+import java.time.Duration;
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
-import java.time.Duration; // Import Duration
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverFactory {
 
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    static WebDriver driver;
+    static Properties p;
 
-    public static WebDriver getDriver() {
-        return driver.get();
-    }
-
-    public static void setDriver(WebDriver dr) {
-        driver.set(dr);
-    }
-
-    public static void quitDriver() {
-        if (getDriver() != null) {
-            getDriver().quit();
-            driver.remove();
-        }
-    }
-
-    public static void initializeDriver() {
-        String browser = ConfigReader.getProperty("browser").toLowerCase();
-        WebDriver currentDriver;
-
-        switch (browser) {
+    public static WebDriver initilizeBrowser() throws IOException
+    {
+        p = getProperties();
+        //String executionEnv = p.getProperty("execution_env");
+        String browser = p.getProperty("browser").toLowerCase();
+        switch(browser)
+        {
             case "chrome":
-                WebDriverManager.chromedriver().setup();
-                currentDriver = new ChromeDriver();
-                break;
-            case "firefox":
-                WebDriverManager.firefoxdriver().setup();
-                currentDriver = new FirefoxDriver();
+                driver=new ChromeDriver();
                 break;
             case "edge":
-                WebDriverManager.edgedriver().setup();
-                currentDriver = new EdgeDriver();
+                driver=new EdgeDriver();
+                break;
+            case "firefox":
+                driver=new FirefoxDriver();
                 break;
             default:
-                throw new IllegalArgumentException("Browser " + browser + " is not supported.");
+                System.out.println("No matching browser");
+                driver=null;
         }
-        currentDriver.manage().window().maximize();
-        currentDriver.manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.parseInt(ConfigReader.getProperty("timeout"))));
-        setDriver(currentDriver);
+        driver.manage().deleteAllCookies();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
+
+        return driver;
+
     }
+
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    public static Properties getProperties() throws IOException
+    {
+        FileReader file=new FileReader(System.getProperty("user.dir")+"\\src\\test\\resources\\config.properties");
+        p=new Properties();
+        p.load(file);
+        return p;
+    }
+
+
 }

@@ -165,6 +165,11 @@
                             <version>5.1.1</version>
                         </dependency>
 
+                        <dependency>
+                            <groupId>com.aventstack</groupId>
+                            <artifactId>extentreports-cucumber7-adapter</artifactId>
+                            <version>1.14.0</version>
+                        </dependency>
                     </dependencies>
                 </project>
                     <source>11</source>

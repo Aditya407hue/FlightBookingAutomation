@@ -1,42 +1,56 @@
 package com.flightbooking.hooks;
 
-import com.flightbooking.utils.ConfigReader;
-import com.flightbooking.utils.LoggerUtil;
-import com.flightbooking.utils.WebDriverFactory;
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import java.io.IOException;
+import java.util.Properties;
+
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import java.time.Duration; // Import Duration
+
+import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import com.flightbooking.utils.WebDriverFactory;
 
 public class Hooks {
 
+    WebDriver driver;
+    Properties p;
+
     @Before
-    public void setup() {
-        LoggerUtil.info("Setting up WebDriver.");
-        ConfigReader.loadProperties(); // Load properties before tests run
-        WebDriverFactory.initializeDriver();
-        WebDriver driver = WebDriverFactory.getDriver();
-        if (driver != null) {
-            // Implicit wait is already set in WebDriverFactory.initializeDriver()
-            driver.manage().window().maximize();
+    public void setup() throws IOException
+    {
+        driver=WebDriverFactory.initilizeBrowser();
+
+        p=WebDriverFactory.getProperties();
+        driver.get(p.getProperty("baseURL"));
+        driver.manage().window().maximize();
+
+    }
+
+
+    @After
+    public void tearDown() {
+
+        driver.quit();
+
+    }
+
+
+    @AfterStep
+    public void addScreenshot(Scenario scenario) {
+        if (scenario.isFailed()) {
+            try {
+                TakesScreenshot ts = (TakesScreenshot) driver;
+                byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", "Failed Step Screenshot");
+            } catch (Exception e) {
+                System.err.println("Screenshot capture failed: " + e.getMessage());
+            }
         }
     }
 
-    @After
-    public void teardown(Scenario scenario) {
-        LoggerUtil.info("Tearing down WebDriver.");
-        if (scenario.isFailed()) {
-            try {
-                byte[] screenshot = ((TakesScreenshot) WebDriverFactory.getDriver()).getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", scenario.getName());
-                LoggerUtil.error("Screenshot captured for failed scenario: " + scenario.getName());
-            } catch (Exception e) {
-                LoggerUtil.error("Failed to capture screenshot: " + e.getMessage());
-            }
-        }
-        WebDriverFactory.quitDriver();
-    }
+
+
 }
