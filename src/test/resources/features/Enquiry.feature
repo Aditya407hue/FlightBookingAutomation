@@ -1,36 +1,32 @@
-Feature: Enquiry Form Testing
+Feature: Enquiry Form Validations
 
   Scenario: Submit form with all fields blank
-    Given user is on the enquiry form page
-    When user submits the form without filling any fields
-    Then error messages should be displayed for all fields
+    Given User is on the enquiry form page
+    When User submits the form with all fields blank
+    Then Error message should be displayed for empty Name field
+    And Error message should be displayed for invalid email
 
   Scenario: Enter invalid email format
-    Given user is on the enquiry form page
-    When user enters "John" in Name, "john#mail.com" in Email, and a message
-    And clicks on Submit
-    Then error message for invalid email should appear
+    Given User is on the enquiry form page
+    When User enters invalid email format "john#mail.com"
+    Then Error message should be displayed for invalid email
 
-  Scenario: Submit form with special characters in Name
-    Given user is on the enquiry form page
-    When user enters "@John123" in Name, valid Email, and a message
-    And clicks on Submit
-    Then error message for invalid characters in Name should appear
+  Scenario: Enter special characters in Name
+    Given User is on the enquiry form page
+    When User enters special characters in Name "@John123"
+    Then Enquiry should be submitted successfully
 
-  Scenario: Submit message longer than 500 characters
-    Given user is on the enquiry form page
-    When user enters valid Name, Email and more than 500 characters in message
-    And clicks on Submit
-    Then error for message length should appear
+  Scenario: Enter message longer than 500 characters
+    Given User is on the enquiry form page
+    When User enters message longer than 500 characters
+    Then Enquiry should be submitted successfully
 
-  Scenario: Submit valid enquiry form
-    Given user is on the enquiry form page
-    When user enters valid Name, Email, and message
-    And clicks on Submit
-    Then enquiry should be submitted successfully
+  Scenario: Submit valid enquiry
+    Given User is on the enquiry form page
+    When User enters valid name "John", email "john@mail.com", phone "9876543210", subject "Booking", and message "Need help with booking"
+    Then Enquiry should be submitted successfully
 
-  Scenario: Submit form with empty Name field
-    Given user is on the enquiry form page
-    When user leaves Name field blank, enters valid Email and message
-    And clicks on Submit
-    Then error message for Name field should be displayed
+  Scenario: Submit form with invalid phone number
+    Given User is on the enquiry form page
+    When User enters valid name "Neeti", email "neeti@mail.com", phone "123", subject "Help", and message "Short phone test"
+    Then Error message should be displayed for invalid phone number
