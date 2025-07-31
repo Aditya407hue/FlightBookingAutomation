@@ -1,132 +1,131 @@
 package com.flightbooking.pages;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+import static org.testng.Assert.assertTrue;
+
 public class LoginPage {
     WebDriver driver;
 
-    By usernameField = By.id("username");
-    By passwordField = By.id("password");
-    By captchaField = By.id("captcha");
-    By captcha = By.id("code");
-    By validateButton = By.id("captchaBtn");
-    By loginButton = By.id("login-submit");
-    By userErr = By.id("usernameErr");
-    By passErr = By.id("passwordErr");
-    By forgotPasswordLink = By.id("reset-password-link");
-    By rememberMeCheckbox = By.id("remember_me");
-    By forgotPasswordPageHeader = By.tagName("h1");
+    @FindBy(id = "username")
+    WebElement usernameField;
+
+    @FindBy(id = "password")
+    WebElement passwordField;
+
+    @FindBy(id = "captcha")
+    WebElement captchaField;
+
+    @FindBy(id = "captchaBtn")
+    WebElement captchaButton;
+
+    @FindBy(id = "remember_me")
+    WebElement rememberMeCheckbox;
+
+    @FindBy(id = "usernameErr")
+    WebElement usernameError;
+
+    @FindBy(id = "passwordErr")
+    WebElement passwordError;
+
+    @FindBy(id = "login-submit")
+    WebElement loginButton;
+
+    @FindBy(id = "reset-password-link")
+    WebElement forgotPasswordLink;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
 
-    public void enterUsername(String username) {
-        driver.findElement(usernameField).sendKeys(username);
+    public void setUsername(String username) {
+        usernameField.sendKeys(username);
     }
 
-    public void enterPassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+    public void setPassword(String password) {
+        passwordField.sendKeys(password);
     }
 
-    public void enterCaptcha() {
-        driver.findElement(captchaField).sendKeys(driver.findElement(captcha).getText());
-    }
-    public void enterInvalidCaptcha() {
-        driver.findElement(captchaField).sendKeys("-");
+    public void setCaptcha() {
+        String value = driver.findElement(By.id("code")).getText();
+        captchaField.sendKeys(value);
     }
 
-    public void clickValidateButton() {
-        driver.findElement(validateButton).click();
+    public void clickValidate() throws InterruptedException {
+        captchaButton.click();
+        driver.switchTo().alert().accept();
     }
 
-    public void clickLoginButton() {
-        driver.findElement(loginButton).click();
+    public void getUsernameError() {
+        String actualError = usernameError.getText().trim();
+        String expectedError = "username is wrong";
+        assertTrue(actualError.equalsIgnoreCase(expectedError), "Username error message mismatch");
     }
 
-    public String getUserErr() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(userErr));
-        return driver.findElement(userErr).getText();
-    }
-    public String getPassErr() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passErr));
-        return driver.findElement(passErr).getText();
+    public void getPasswordError() {
+        String actualError = passwordError.getText().trim();
+        String expectedError = "password is wrong";
+        assertTrue(actualError.equalsIgnoreCase(expectedError), "Password error message mismatch");
     }
 
-    public boolean isLoginSuccessful() {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.alertIsPresent());
+    public void getEmptyError() {
+        String unameMsg = usernameError.getText().trim();
+        String expectedUnameMsg = "username cannot be empty";
+        String passMsg = passwordError.getText().trim();
+        String expectedPassMsg = "password cannot be empty";
+        assertTrue(unameMsg.equalsIgnoreCase(expectedUnameMsg), "Username empty message mismatch");
+        assertTrue(passMsg.equalsIgnoreCase(expectedPassMsg), "Password empty message mismatch");
 
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            System.out.println("Login Alert: " + alertText);
-            boolean isSuccess = alertText.equalsIgnoreCase("Login Successful");
-            alert.accept();
-            return isSuccess;
-
-        } catch (TimeoutException e) {
-            System.err.println("Alert for login success did not appear.");
-            return false;
-        }
     }
 
-    public boolean isForgotPasswordLinkDisplayed() {
-        return driver.findElement(forgotPasswordLink).isDisplayed();
+    public void clickLogin() throws InterruptedException {
+        loginButton.click();
+        Thread.sleep(1000);
     }
 
-    public void enableRememberMeCheckbox() {
-        WebElement checkbox = driver.findElement(rememberMeCheckbox);
-        if (!checkbox.isSelected()) {
-            checkbox.click();
-        }
+    public void clickForgotPassword() {
+        forgotPasswordLink.click();
     }
 
-    public void handleRememberMeAlerts() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-
-        // First alert: "Do you want to remember changes?"
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert1 = driver.switchTo().alert();
-        System.out.println("First Alert: " + alert1.getText());
-        alert1.accept();
-
-        // Second alert: "Username and Password Saved Successfully!"
-        wait.until(ExpectedConditions.alertIsPresent());
-        Alert alert2 = driver.switchTo().alert();
-        System.out.println("Second Alert: " + alert2.getText());
-        alert2.accept();
-    }
-
-    public void clickForgotPasswordLink() {
-        driver.findElement(forgotPasswordLink).click();
-    }
-
-    public boolean isOnResetPasswordPage() {
-        try {
-            String pageSource = driver.getPageSource().toLowerCase();
-
-            // Detect common 404 indicators (optional)
-            if (pageSource.contains("404 not found") || driver.getTitle().contains("404")) {
-                System.out.println("Detected 404 error on the page.");
-                return false;
+    public void checkRememberMe() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        if (!rememberMeCheckbox.isSelected()) {
+            rememberMeCheckbox.click();
+            try {
+                driver.switchTo().alert().accept();
+                Thread.sleep(2000);
+                driver.switchTo().alert().accept();
+                Thread.sleep(5000);
+            }catch(Exception e) {
+                System.out.println(e);
             }
-
-            // Wait for expected heading
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            WebElement heading = wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPasswordPageHeader));
-            return heading.getText().toLowerCase().contains("reset");
-
-        } catch (Exception e) {
-            return false;
         }
     }
 
+    public void verifyRememberedCredentials(String expectedUser, String expectedPass) {
+        driver.navigate().to("https://webapps.tekstac.com/FlightBooking/login.html");
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.visibilityOf(usernameField));
+        String actualUser = usernameField.getAttribute("value");
+        String actualPass = passwordField.getAttribute("value");
+        assert actualUser.equals(expectedUser) : "Username does not match. Expected: " + expectedUser + ", Actual: " + actualUser;
+        assert actualPass.equals(expectedPass) : "Password does not match. Expected: " + expectedPass + ", Actual: " + actualPass;
+    }
 
+    public void verifyForgotPasswordRedirect() {
+        String pageSource = driver.getPageSource();
+        assert !pageSource.contains("HTTP Status 404") : "Page not found (404 error detected)";
+    }
+
+    public void verifyAlert() {
+        driver.switchTo().alert().accept();
+
+    }
 
 }

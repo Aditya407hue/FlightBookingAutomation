@@ -1,68 +1,45 @@
 @Login
 Feature: Login Functionality
+
   Background:
-    Given Start browser and navigate to the login page
-  @Login
-  Scenario: Successful Login with Valid Credentials (TC-UI-LOGIN-001)
-    Given I open the browser
-    And I navigate to the login page
-    When I enter username "flightadmin" and password "flightadmin"
-    And I enter captcha
-    And I click the "Validate" button on login page
-    Then I should see a message "Valid input"
-    When I click the "Login" button on login page
-    Then I should see a message "Login Successful"
+    Given Start browser and navigate to login page
 
-  @Login
-  Scenario: Unsuccessful Login with Invalid Username (TC-UI-LOGIN-002)
-    Given I open the browser
-    And I navigate to the login page
-    When I enter username "flight" and password "flightadmin"
-    And I enter captcha
-    And I click the "Validate" button on login page
-    Then I should see a message "Valid input"
-    When I click the "Login" button on login page
-    Then I should see an error message "Username is wrong"
+  Scenario Outline: To Verify login with valid credentials
+    And user enters credentials to login
+      | flightadmin | flightadmin |
+    And user get the captcha generated and enters valid captcha code
+    And click on login button
+    Then it should display alert message and click ok
 
-  @Login
-  Scenario: Unsuccessful Login with Invalid Password (TC-UI-LOGIN-003)
-    Given I open the browser
-    And I navigate to the login page
-    When I enter username "flightadmin" and password "wrongpass"
-    And I enter captcha
-    And I click the "Validate" button on login page
-    Then I should see a message "Valid input"
-    When I click the "Login" button on login page
-    Then I should see an error message "Password is wrong"
+  Scenario Outline: To Verify login with invalid password
+    And user enters valid username and invalid password
+      | flightadmin | wrongpass |
+    And user get the captcha generated and enters valid captcha code
+    And click on login button
+    Then it should display password error message
 
-  @Login
-  Scenario: Navigate to Forgot Password page (TC-UI-LOGIN-004)
-    Given I open the browser
-    And I navigate to the login page
-    Then I should see the "Forgot Password" link
-    When I click the "Forgot Password" link
-    Then I should be redirected to the password reset page
+  Scenario Outline: To Verify login with invalid username
+    And user enters invalid username and valid password
+      | invalid | flightadmin |
+    And user get the captcha generated and enters valid captcha code
+    And click on login button
+    Then it should display username error message
 
-  @Login
-  Scenario: Invalid Captcha (TC-UI-LOGIN-005)
-    Given I open the browser
-    And I navigate to the login page
-    When I enter username "flightadmin" and password "flightadmin"
-    And I enter invalid captcha
-    And I click the "Validate" button on login page
-    Then I should see a message "invalid input"
+  Scenario Outline: To Verify login with empty fields
+    And user leaves username and password fields empty
+    And user get the captcha generated and enters valid captcha code
+    And click on login button
+    Then it should display username and password error messages
 
-  @Login
-  Scenario: Remember Me On This Computer Checkbox (TC-UI-LOGIN-006)
-    Given I open the browser
-    And I navigate to the login page
-    When I enter username "admin" and password "admin"
-    And I enter captcha
-    And I click the "Validate" button on login page
-    Then I should see a message "Valid input"
-    And I enable "Remember me on this computer" checkbox
-    And I accept the remember me alerts
-    And I click the "Login" button on login page
-    And I navigate to the login page again
-    And I click the "Login" button on login page
-    Then I should be logged in successfully
+  Scenario Outline: To Verify Remember Me functionality
+    And user enters credentials to login
+      | flightadmin | flightadmin |
+    And user get the captcha generated and enters valid captcha code
+    And check the Remember Me checkbox and accept alerts
+    And click on login button
+    Then it should display alert message and click ok
+    And credentials should be remembered on next visit
+
+  Scenario Outline: To Verify Forgot Password functionality
+    And user clicks on the Forgot your password link
+    Then it should redirect to the reset password page

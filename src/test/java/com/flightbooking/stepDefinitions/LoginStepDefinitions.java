@@ -1,7 +1,7 @@
 package com.flightbooking.stepDefinitions;
 
 import com.flightbooking.pages.LoginPage;
-import com.flightbooking.utils.ConfigReader;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.junit.Assert;
 
 import java.time.Duration;
+import java.util.List;
 
 public class LoginStepDefinitions {
 
@@ -25,129 +26,85 @@ public class LoginStepDefinitions {
     public void start_browser() {
         login = new LoginPage(driver);
     }
-    @Given("I open the browser")
-    public void openBrowser() {
-        // Already handled in Hooks.java
-        System.out.println("Browser already opened in Hooks: " + driver.getCurrentUrl());
+
+    @And("user enters credentials to login")
+    public void user_enters_valid_credentials(DataTable dataTable) {
+        List<List<String>> data = dataTable.asLists(String.class);
+        login.setUsername(data.get(0).get(0));
+        login.setPassword(data.get(0).get(1));
     }
 
-    @And("I navigate to the login page")
-    public void navigateToLogin() {
-        driver.get("https://webapps.tekstac.com/FlightBooking/login.html");
+    @And("user enters valid username and invalid password")
+    public void user_enters_valid_username_invalid_password(DataTable dataTable) {
+        List<List<String>> data = dataTable.asLists(String.class);
+        login.setUsername(data.get(0).get(0));
+        login.setPassword(data.get(0).get(1));
     }
 
-    @When("I enter username {string} and password {string}")
-    public void enterCredentials(String username, String password) {
-        login.enterUsername(username);
-        login.enterPassword(password);
+    @And("user enters invalid username and valid password")
+    public void user_enters_invalid_username_valid_password(DataTable dataTable) {
+        List<List<String>> data = dataTable.asLists(String.class);
+        login.setUsername(data.get(0).get(0));
+        login.setPassword(data.get(0).get(1));
     }
 
-    @And("I enter captcha")
-    public void enterCaptcha() {
-        login.enterCaptcha();
+    @And("user leaves username and password fields empty")
+    public void user_leaves_fields_empty() {
+        login.setUsername("");
+        login.setPassword("");
     }
 
-    @And("I enter invalid captcha")
-    public void enterInvalidCaptcha() {
-        login.enterInvalidCaptcha();
+    @And("user get the captcha generated and enters valid captcha code")
+    public void enter_captcha() throws InterruptedException {
+        login.setCaptcha();
+        login.clickValidate();
+
     }
 
-    @And("I click the {string} button on login page")
-    public void clickButton(String buttonName) {
-        if (buttonName.equalsIgnoreCase("Validate")) {
-            login.clickValidateButton();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        } else if (buttonName.equalsIgnoreCase("Login")) {
-            login.clickLoginButton();
-        } else {
-            Assert.fail("Unknown button: " + buttonName);
-        }
+    @And("click on login button")
+    public void click_login() throws InterruptedException {
+        login.clickLogin();
+
     }
 
-    @Then("I should see a message {string}")
-    public void shouldSeeMessage(String expectedMessage) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.alertIsPresent());
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            System.out.println("Alert message: " + alertText);
-            Assert.assertEquals("Alert message mismatch", expectedMessage, alertText);
-            alert.accept();
+    @Then("it should display alert message and click ok")
+    public void verify_success_alert() {
+        login.verifyAlert();
 
-        } catch (Exception e) {
-            System.out.println("No alert, checking message element...");
-            try {
-                By messageLocator = By.id("messageDisplay");
-                WebElement message = new WebDriverWait(driver, Duration.ofSeconds(10))
-                        .until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
-                Assert.assertEquals("Page message mismatch", expectedMessage, message.getText());
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                Assert.fail("No alert or visible message found.");
-            }
-        }
     }
 
-    @Then("I should see an error message {string}")
-    public void shouldSeeErrorMessage(String expectedErrorMessage) {
-        if (expectedErrorMessage.equals("Username is wrong")) {
-            Assert.assertEquals("Error message mismatch: ", expectedErrorMessage, login.getUserErr());
-        }
-        if (expectedErrorMessage.equals("Password is wrong")) {
-            Assert.assertEquals("Error message mismatch: ", expectedErrorMessage, login.getPassErr());
-        }
+    @Then("it should display password error message")
+    public void verify_password_error() {
+        login.getPasswordError();
     }
 
-    @And("I should be logged in successfully")
-    public void shouldBeLoggedInSuccessfully() {
-        Assert.assertTrue("Login was not successful.", login.isLoginSuccessful());
+    @Then("it should display username error message")
+    public void verify_username_error() {
+        login.getUsernameError();
     }
 
-    @Then("I should see the {string} link")
-    public void shouldSeeLink(String linkText) {
-        if (linkText.equalsIgnoreCase("Forgot Password")) {
-            Assert.assertTrue("Forgot Password link is not displayed.", login.isForgotPasswordLinkDisplayed());
-        } else {
-            Assert.fail("Unknown link text: " + linkText);
-        }
+    @Then("it should display username and password error messages")
+    public void verify_empty_field_error() {
+        login.getEmptyError();
     }
 
-    @And("I enable {string} checkbox")
-    public void enableCheckbox(String checkboxText) {
-        if (checkboxText.equalsIgnoreCase("Remember me on this computer")) {
-            login.enableRememberMeCheckbox();
-        } else {
-            Assert.fail("Unknown checkbox: " + checkboxText);
-        }
+    @And("check the Remember Me checkbox and accept alerts")
+    public void check_remember_me() {
+        login.checkRememberMe();
     }
 
-    @And("I accept the remember me alerts")
-    public void handleRememberMeAlerts() {
-        login.handleRememberMeAlerts();
+    @And("credentials should be remembered on next visit")
+    public void verify_remembered_credentials() {
+        login.verifyRememberedCredentials("flightadmin", "flightadmin");
     }
 
-    @And("I navigate to the login page again")
-    public void navigateToLoginAgain() {
-        driver.get("https://webapps.tekstac.com/FlightBooking/login.html");
+    @And("user clicks on the Forgot your password link")
+    public void click_forgot_password() {
+        login.clickForgotPassword();
     }
 
-
-    @When("I click the {string} link")
-    public void iClickTheLink(String linkText) {
-        if (linkText.equalsIgnoreCase("Forgot Password")) {
-            login.clickForgotPasswordLink();
-        } else {
-            Assert.fail("Unknown link: " + linkText);
-        }
-    }
-
-    @Then("I should be redirected to the password reset page")
-    public void iShouldBeRedirectedToResetPage() {
-        Assert.assertTrue("Did not navigate to reset password page.", login.isOnResetPasswordPage());
+    @Then("it should redirect to the reset password page")
+    public void verify_forgot_password_redirect() {
+        login.verifyForgotPasswordRedirect();
     }
 }
