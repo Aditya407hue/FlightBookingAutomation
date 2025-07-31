@@ -3,8 +3,10 @@ package com.flightbooking.stepDefinitions;
 import com.flightbooking.pages.EnquiryPage;
 import com.flightbooking.utils.WebDriverFactory;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
+import org.junit.Assert;
+
+import java.util.concurrent.TimeoutException;
 
 public class EnquiryStepDefinition {
 
@@ -66,7 +68,7 @@ public class EnquiryStepDefinition {
     }
 
     @Then("Enquiry should be submitted successfully")
-    public void enquiry_should_be_submitted_successfully() throws InterruptedException {
+    public void enquiry_should_be_submitted_successfully() throws InterruptedException, TimeoutException {
         Assert.assertTrue("Expected success message", enquiryPage.isSuccessMessageVisible());
         Assert.assertTrue("Success message text mismatch",
                 enquiryPage.getSuccessMessageText().contains("Successfully Submitted"));
