@@ -1,88 +1,75 @@
+Feature: Flight Ticket Booking
 
-Feature: Ticket Booking Module Functionality
+  Background:
+    Given the application is accessible
+    And I navigate to the Booking page
 
-  Scenario: Submit form with all fields blank
-    Given The booking page is loaded and is accessible
-    When User leaves all booking form fields empty
-    And Clicks on "Book Now" button
-    Then Error message for all mandatory fields should appear
 
-  Scenario: Leave "Name" field empty
-    Given The booking page is loaded and is accessible
-    When User leaves the "Passenger Name" field empty
-    And Clicks on "Book Now" button
-    Then Error message for "Passenger Name" should appear
+  @Positive
+  Scenario: Valid Travel From/To
+    When User enters "London" in Travel From field
+    And User enters "Mumbai" in Travel To field
+    And User enters "12/07/2025" as Departure Date
+    And User selects "First Class"
+    And User enters "Ananya" as Passenger Name
+    And User enters "ananya@gmail.com" as Email
+    And User enters "9876543210" as Phone Number
+    And User sets "1" Passenger
+    And User clicks on Book Ticket
+    Then Booking should be successful
 
-  Scenario: Enter invalid email format
-    Given The booking page is loaded and is accessible
-    When User enters invalid email "john#gfail.com"
-    And Clicks on "Book Now" button
-    Then Error message for invalid email format should appear
+  @Negative
+  Scenario: Invalid Travel From/To
+    When User enters "asdfghjkk" in Travel From field
+    And User enters "xyiz" in Travel To field
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Error message "Invalid City Name" should be displayed
 
-  Scenario: Enter non-numeric phone number
-    Given The booking page is loaded and is accessible
-    When User enters non-numeric phone number "abcd123"
-    And Clicks on "Book Now" button
-    Then Error message for non-numeric phone number should appear
+  @Positive
+  Scenario: Valid Date
+    When User enters "12/07/2025" as Departure Date
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Booking should be successful
 
-  Scenario: Enter less than 10 digit phone number
-    Given The booking page is loaded and is accessible
-    When User enters phone number "98765" with less than 10 digits
-    And Clicks on "Book Now" button
-    Then Error message for phone number length should appear
+  @Negative
+  Scenario: Invalid Date
+    When User enters "8889988" as Departure Date
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Error message "Invalid/Past Date" should be displayed
 
-  Scenario: Enter past date in 'Departure Date' field
-    Given The booking page is loaded and is accessible
-    When User enters past date "01/07/2024" in "Departure Date" field
-    And Clicks on "Book Now" button
-    Then Error message for past date should appear
+  @Positive
+  Scenario: Valid Email
+    When User enters "ananya@gmail.com" as Email
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Booking should be successful
 
-  Scenario: Enter invalid date format in 'Departure Date' field
-    Given The booking page is loaded and is accessible
-    When User enters invalid date format "August 15,20205" in "Departure Date" field
-    And Clicks on "Book Now" button
-    Then Error message for invalid date format should appear
+  @Negative
+  Scenario: TC-UI-TICKET-006 - Invalid Email
+    When User enters "testexample.com" as Email
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Error message "Invalid Email Format" should be displayed
 
-  Scenario: Enter a non-date text in 'Departure Date' field
-    Given The booking page is loaded and is accessible
-    When User enters non-date text "abcd123" in "Departure Date" field
-    And Clicks on "Book Now" button
-    Then Error message for non-date text should appear
+  @Positive
+  Scenario: TC-UI-TICKET-007 - Valid Phone Number
+    When User enters "9876543210" as Phone Number
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Booking should be successful
 
-  Scenario: Enter an invalid date in 'Departure Date' field
-    Given The booking page is loaded and is accessible
-    When User enters invalid date "34/13/1999" in "Departure Date" field
-    And Clicks on "Book Now" button
-    Then Error message for invalid date should appear
+  @Negative
+  Scenario: Invalid Phone Number
+    When User enters "123" as Phone Number
+    And fills all other fields with valid data
+    And User clicks on Book Ticket
+    Then Error message "Please enter a valid 10-digit phone number" should be displayed
 
-  Scenario: Book with 0 passengers
-    Given The booking page is loaded and is accessible
-    When User enters valid details in all fields and sets passenger count to "0"
-    And Clicks on "Book Now" button
-    Then Error message for 0 passengers should appear
-
-  Scenario: Increase passenger count using "+" button
-    Given The booking page is loaded and is accessible
-    When User increases passenger count using "+" button
-    Then Passenger count should increase by 1
-
-  Scenario: Decrease passenger count using "-" button when count is 0
-    Given The booking page is loaded and is accessible
-    When User sets passenger count to "0" and tries to decrease it using "-" button
-    Then Passenger count should not go below 0
-
-  Scenario: Validate VAT as 3% of subtotal
-    Given The booking page is loaded and is accessible
-    When User enters valid details in all fields and books a ticket
-    Then Booking table appears successfully and VAT is calculated accurately
-
-  Scenario: Validate Total = Subtotal + VAT
-    Given The booking page is loaded and is accessible
-    When User enters valid details in all fields and books a ticket
-    Then Booking table appears successfully and Total is calculated accurately
-
-  Scenario: Travel From and To cannot be same
-    Given The booking page is loaded and is accessible
-    When User enters same location in "Travel From" and "Travel To" fields
-    And Clicks on "Book Now" button
-    Then Error message that "Travel From" and "Travel To" cannot be same should appear
+  @Negative
+  Scenario: Duplicate Booking Check
+    When User books a ticket with valid data
+    And User tries to book again with same details
+    Then Duplicate booking warning should be displayed
