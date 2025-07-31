@@ -1,96 +1,66 @@
-# src/test/resources/features/Login.feature
-Feature: Login Module Functionality
+Feature: Login
 
   @Login
-  Scenario: Successful Login with valid credentials
-    Given User is on the Login page
-    When User enters valid username "flightadmin" and password "flightadmin"
-    And Clicks on "Login" button
-    Then User should be successfully redirected to the home page
+  Scenario: Successful Login with Valid Credentials (TC-UI-LOGIN-001)
+    Given I open the browser
+    And I navigate to the login page
+    When I enter username "flightadmin" and password "flightadmin"
+    And I enter captcha
+    And I click the "Validate" button on login page
+    Then I should see a message "Valid input"
+    When I click the "Login" button on login page
+    Then I should see a message "Login Successful"
 
   @Login
-  Scenario: Login with incorrect password
-    Given User is on the Login page
-    When User enters username "flightadmin" and invalid password "wrongpass"
-    And Clicks on "Login" button
-    Then An error message should appear
+  Scenario: Unsuccessful Login with Invalid Username (TC-UI-LOGIN-002)
+    Given I open the browser
+    And I navigate to the login page
+    When I enter username "flight" and password "flightadmin"
+    And I enter captcha
+    And I click the "Validate" button on login page
+    Then I should see a message "Valid input"
+    When I click the "Login" button on login page
+    Then I should see an error message "Username is wrong"
 
   @Login
-  Scenario: Login with a non-existent user
-    Given User is on the Login page
-    When User enters random username "nonexistent" and password "randompass"
-    And Clicks on "Login" button
-    Then An error message should appear
+  Scenario: Unsuccessful Login with Invalid Password (TC-UI-LOGIN-003)
+    Given I open the browser
+    And I navigate to the login page
+    When I enter username "flightadmin" and password "wrongpass"
+    And I enter captcha
+    And I click the "Validate" button on login page
+    Then I should see a message "Valid input"
+    When I click the "Login" button on login page
+    Then I should see an error message "Password is wrong"
 
   @Login
-  Scenario: Login with incorrect username and password
-    Given User is on the Login page
-    When User enters invalid username "invaliduser" and password "invalidpass"
-    And Clicks on "Login" button
-    Then An error message should appear
+  Scenario: Navigate to Forgot Password page (TC-UI-LOGIN-004)
+    Given I open the browser
+    And I navigate to the login page
+    Then I should see the "Forgot Password" link
+    When I click the "Forgot Password" link
+    Then I should be redirected to the password reset page
 
   @Login
-  Scenario: Submit login with all fields blank
-    Given User is on the Login page
-    When User leaves all login fields empty
-    And Clicks on "Login" button
-    Then An error message should appear
+  Scenario: Invalid Captcha (TC-UI-LOGIN-005)
+    Given I open the browser
+    And I navigate to the login page
+    When I enter username "flightadmin" and password "flightadmin"
+    And I enter invalid captcha
+    And I click the "Validate" button on login page
+    Then I should see a message "invalid input"
 
   @Login
-  Scenario: Submit login with only username
-    Given User is on the Login page
-    When User enters username "flightadmin" and leaves password field empty
-    And Clicks on "Login" button
-    Then An error message for "password" field should appear
-
-  @Login
-  Scenario: Submit login with only password
-    Given User is on the Login page
-    When User enters password "flightadmin" and leaves username field empty
-    And Clicks on "Login" button
-    Then An error message for "username" field should appear
-
-  @Login
-  Scenario: Enter special characters in username field
-    Given User is on the Login page
-    When User enters special characters "user!@#" in username field
-    And Clicks on "Login" button
-    Then An error message should appear
-
-  @Login
-  Scenario: Enter script tag or XSS payload in input fields
-    Given User is on the Login page
-    When User enters XSS payload "<script>alert(1)</script>" in input fields
-    And Clicks on "Login" button
-    Then An error message should appear
-
-  @Login
-  Scenario: Enter special characters in password field
-    Given User is on the Login page
-    When User enters special characters "pass!@#" in password field
-    And Clicks on "Login" button
-    Then An error message should appear
-
-    @Login
-      Scenario: Login with missing captcha
-        Given User is on the Login page
-        When User enters valid username "flightadmin" and password "flightadmin"
-        And Leaves captcha field empty
-        And Clicks on "Login" button
-        Then An error message for "captcha" field should appear
-
-      @Login
-      Scenario: Login with invalid captcha
-        Given User is on the Login page
-        When User enters valid username "flightadmin" and password "flightadmin"
-        And Enters invalid captcha "wrongcaptcha"
-        And Clicks on "Login" button
-        Then An error message for "captcha" field should appear
-
-      @Login
-      Scenario: Login with valid captcha
-        Given User is on the Login page
-        When User enters valid username "flightadmin" and password "flightadmin"
-        And Enters valid captcha "validcaptcha"
-        And Clicks on "Login" button
-        Then User should be successfully redirected to the home page
+  Scenario: Remember Me On This Computer Checkbox (TC-UI-LOGIN-006)
+    Given I open the browser
+    And I navigate to the login page
+    When I enter username "admin" and password "admin"
+    And I enter captcha
+    And I click the "Validate" button on login page
+    Then I should see a message "Valid input"
+    And I enable "Remember me on this computer" checkbox
+    And I accept the remember me alerts
+    And I click the "Login" button on login page
+    And I navigate to the login page again
+    And I click the "Login" button on login page
+    Then I should be logged in successfully

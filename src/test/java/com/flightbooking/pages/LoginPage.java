@@ -1,93 +1,132 @@
 package com.flightbooking.pages;
 
-import com.flightbooking.utils.ConfigReader;
-import com.flightbooking.utils.WebDriverFactory;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
-import java.util.List; // Import List
 
 public class LoginPage {
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+    WebDriver driver;
 
-    // Locators
-    private final By usernameField = By.id("username");
-    private final By passwordField = By.id("password");
-    private final By loginButton = By.xpath("//button[@type='submit']");
-    private final By errorMessage = By.id("errorMessage"); // Assuming an ID for error messages on login page
+    By usernameField = By.id("username");
+    By passwordField = By.id("password");
+    By captchaField = By.id("captcha");
+    By captcha = By.id("code");
+    By validateButton = By.id("captchaBtn");
+    By loginButton = By.id("login-submit");
+    By userErr = By.id("usernameErr");
+    By passErr = By.id("passwordErr");
+    By forgotPasswordLink = By.id("reset-password-link");
+    By rememberMeCheckbox = By.id("remember_me");
+    By forgotPasswordPageHeader = By.tagName("h1");
 
-    public LoginPage() {
-        this.driver = WebDriverFactory.getDriver();
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(Integer.parseInt(ConfigReader.getProperty("timeout"))));
-    }
-
-    public void navigateToLoginPage(String url) {
-        driver.get(url);
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
     }
 
     public void enterUsername(String username) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(usernameField));
-        element.clear(); // Clear field before sending keys
-        element.sendKeys(username);
+        driver.findElement(usernameField).sendKeys(username);
     }
 
     public void enterPassword(String password) {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(passwordField));
-        element.clear(); // Clear field before sending keys
-        element.sendKeys(password);
-    }
-
-    public void clickLoginButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)).click();
-    }
-
-    public String getErrorMessage() {
-        // Check for the error message element's visibility
-        List<WebElement> errorElements = driver.findElements(errorMessage);
-        if (!errorElements.isEmpty() && errorElements.get(0).isDisplayed()) {
-            return errorElements.get(0).getText();
-        }
-        // If specific error message element is not found, try to find generic error messages
-        // This is a common strategy when specific IDs/classes for error messages aren't consistent
-        List<WebElement> genericErrorElements = driver.findElements(By.xpath("//*[contains(@class, 'error-message') or contains(@class, 'alert-danger')]"));
-        if (!genericErrorElements.isEmpty() && genericErrorElements.get(0).isDisplayed()) {
-            return genericErrorElements.get(0).getText();
-        }
-        return null; // No error message found
-    }
-
-    public String getCurrentUrl() {
-        return driver.getCurrentUrl();
+        driver.findElement(passwordField).sendKeys(password);
     }
 
     public void enterCaptcha() {
-        WebElement captchaTextElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("code")));
-        String captchaText = captchaTextElement.getText();
-
-        // Enter captcha text into input box
-        WebElement captchaInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("captcha")));
-        captchaInput.clear();
-        captchaInput.sendKeys(captchaText);
-
-        // Click the validate button
-        WebElement validateButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("captchaBtn")));
-        validateButton.click();
+        driver.findElement(captchaField).sendKeys(driver.findElement(captcha).getText());
     }
-    public void enterCaptcha(String captchaText) {
-//        WebElement captchaTextElement = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("code")));
-//        String captchaText = captchaTextElement.getText();
-
-        // Enter captcha text into input box
-        WebElement captchaInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("captcha")));
-        captchaInput.clear();
-        captchaInput.sendKeys(captchaText);
-
-        // Click the validate button
-        WebElement validateButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("captchaBtn")));
-        validateButton.click();
+    public void enterInvalidCaptcha() {
+        driver.findElement(captchaField).sendKeys("-");
     }
+
+    public void clickValidateButton() {
+        driver.findElement(validateButton).click();
+    }
+
+    public void clickLoginButton() {
+        driver.findElement(loginButton).click();
+    }
+
+    public String getUserErr() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(userErr));
+        return driver.findElement(userErr).getText();
+    }
+    public String getPassErr() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(passErr));
+        return driver.findElement(passErr).getText();
+    }
+
+    public boolean isLoginSuccessful() {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.alertIsPresent());
+
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            System.out.println("Login Alert: " + alertText);
+            boolean isSuccess = alertText.equalsIgnoreCase("Login Successful");
+            alert.accept();
+            return isSuccess;
+
+        } catch (TimeoutException e) {
+            System.err.println("Alert for login success did not appear.");
+            return false;
+        }
+    }
+
+    public boolean isForgotPasswordLinkDisplayed() {
+        return driver.findElement(forgotPasswordLink).isDisplayed();
+    }
+
+    public void enableRememberMeCheckbox() {
+        WebElement checkbox = driver.findElement(rememberMeCheckbox);
+        if (!checkbox.isSelected()) {
+            checkbox.click();
+        }
+    }
+
+    public void handleRememberMeAlerts() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
+        // First alert: "Do you want to remember changes?"
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert1 = driver.switchTo().alert();
+        System.out.println("First Alert: " + alert1.getText());
+        alert1.accept();
+
+        // Second alert: "Username and Password Saved Successfully!"
+        wait.until(ExpectedConditions.alertIsPresent());
+        Alert alert2 = driver.switchTo().alert();
+        System.out.println("Second Alert: " + alert2.getText());
+        alert2.accept();
+    }
+
+    public void clickForgotPasswordLink() {
+        driver.findElement(forgotPasswordLink).click();
+    }
+
+    public boolean isOnResetPasswordPage() {
+        try {
+            String pageSource = driver.getPageSource().toLowerCase();
+
+            // Detect common 404 indicators (optional)
+            if (pageSource.contains("404 not found") || driver.getTitle().contains("404")) {
+                System.out.println("Detected 404 error on the page.");
+                return false;
+            }
+
+            // Wait for expected heading
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            WebElement heading = wait.until(ExpectedConditions.visibilityOfElementLocated(forgotPasswordPageHeader));
+            return heading.getText().toLowerCase().contains("reset");
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
+
 }

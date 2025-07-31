@@ -7,139 +7,144 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.testng.Assert;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.junit.Assert;
+
+import java.time.Duration;
 
 public class LoginStepDefinitions {
-    private LoginPage loginPage;
 
-    public LoginStepDefinitions() {
-        loginPage = new LoginPage();
+    WebDriver driver = com.flightbooking.utils.WebDriverFactory.getDriver();
+    LoginPage login = new LoginPage(driver);
+
+    @Given("I open the browser")
+    public void openBrowser() {
+        // Already handled in Hooks.java
+        System.out.println("Browser already opened in Hooks: " + driver.getCurrentUrl());
     }
 
-    @Given("User is on the Login page")
-    public void userIsOnTheLoginPage() {
-        LoggerUtil.info("Navigating to Login page.");
-        loginPage.navigateToLoginPage(ConfigReader.getProperty("base.url"));
-        // Basic assertion: URL should contain "login" or a specific element should be visible
-        Assert.assertTrue(loginPage.getCurrentUrl().contains("login"), "User is not on the Login page.");
+    @And("I navigate to the login page")
+    public void navigateToLogin() {
+        driver.get("https://webapps.tekstac.com/FlightBooking/login.html");
     }
 
-    @When("User enters valid username {string} and password {string}")
-    public void userEntersValidUsernameAndPassword(String username, String password) {
-        LoggerUtil.info("Entering valid username and password.");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+    @When("I enter username {string} and password {string}")
+    public void enterCredentials(String username, String password) {
+        login.enterUsername(username);
+        login.enterPassword(password);
     }
 
-    @And("Clicks on {string} button")
-    public void clicksOnButton(String buttonName) {
-        LoggerUtil.info("Clicking on " + buttonName + " button.");
-        loginPage.clickLoginButton();
+    @And("I enter captcha")
+    public void enterCaptcha() {
+        login.enterCaptcha();
     }
 
-    @Then("User should be successfully redirected to the home page")
-    public void userShouldBeSuccessfullyRedirectedToTheHomePage() {
-        LoggerUtil.info("Verifying redirection to home page.");
-        // Assuming "dashboard" or "home" is part of the URL after successful login
-        Assert.assertTrue(loginPage.getCurrentUrl().contains("home") || loginPage.getCurrentUrl().contains("dashboard"), "User was not redirected to home page.");
+    @And("I enter invalid captcha")
+    public void enterInvalidCaptcha() {
+        login.enterInvalidCaptcha();
     }
 
-    @When("User enters username {string} and invalid password {string}")
-    public void userEntersUsernameAndInvalidPassword(String username, String password) {
-        LoggerUtil.info("Entering username '" + username + "' and invalid password.");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+    @And("I click the {string} button on login page")
+    public void clickButton(String buttonName) {
+        if (buttonName.equalsIgnoreCase("Validate")) {
+            login.clickValidateButton();
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else if (buttonName.equalsIgnoreCase("Login")) {
+            login.clickLoginButton();
+        } else {
+            Assert.fail("Unknown button: " + buttonName);
+        }
     }
 
-    @When("User enters random username {string} and password {string}")
-    public void userEntersRandomUsernameAndPassword(String username, String password) {
-        LoggerUtil.info("Entering random username '" + username + "' and password '" + password + "'.");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+    @Then("I should see a message {string}")
+    public void shouldSeeMessage(String expectedMessage) {
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.alertIsPresent());
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            System.out.println("Alert message: " + alertText);
+            Assert.assertEquals("Alert message mismatch", expectedMessage, alertText);
+            alert.accept();
+
+        } catch (Exception e) {
+            System.out.println("No alert, checking message element...");
+            try {
+                By messageLocator = By.id("messageDisplay");
+                WebElement message = new WebDriverWait(driver, Duration.ofSeconds(10))
+                        .until(ExpectedConditions.visibilityOfElementLocated(messageLocator));
+                Assert.assertEquals("Page message mismatch", expectedMessage, message.getText());
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                Assert.fail("No alert or visible message found.");
+            }
+        }
     }
 
-    @When("User enters invalid username {string} and password {string}")
-    public void userEntersInvalidUsernameAndPassword(String username, String password) {
-        LoggerUtil.info("Entering invalid username '" + username + "' and password '" + password + "'.");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword(password);
+    @Then("I should see an error message {string}")
+    public void shouldSeeErrorMessage(String expectedErrorMessage) {
+        if (expectedErrorMessage.equals("Username is wrong")) {
+            Assert.assertEquals("Error message mismatch: ", expectedErrorMessage, login.getUserErr());
+        }
+        if (expectedErrorMessage.equals("Password is wrong")) {
+            Assert.assertEquals("Error message mismatch: ", expectedErrorMessage, login.getPassErr());
+        }
     }
 
-    @When("User leaves all login fields empty")
-    public void userLeavesAllLoginFieldsEmpty() {
-        LoggerUtil.info("Leaving all login fields empty.");
-        loginPage.enterUsername("");
-        loginPage.enterPassword("");
+    @And("I should be logged in successfully")
+    public void shouldBeLoggedInSuccessfully() {
+        Assert.assertTrue("Login was not successful.", login.isLoginSuccessful());
     }
 
-    @When("User enters username {string} and leaves password field empty")
-    public void userEntersUsernameAndLeavesPasswordFieldEmpty(String username) {
-        LoggerUtil.info("Entering username '" + username + "' and leaving password empty.");
-        loginPage.enterUsername(username);
-        loginPage.enterPassword("");
+    @Then("I should see the {string} link")
+    public void shouldSeeLink(String linkText) {
+        if (linkText.equalsIgnoreCase("Forgot Password")) {
+            Assert.assertTrue("Forgot Password link is not displayed.", login.isForgotPasswordLinkDisplayed());
+        } else {
+            Assert.fail("Unknown link text: " + linkText);
+        }
     }
 
-    @When("User enters password {string} and leaves username field empty")
-    public void userEntersPasswordAndLeavesUsernameFieldEmpty(String password) {
-        LoggerUtil.info("Entering password and leaving username empty.");
-        loginPage.enterUsername("");
-        loginPage.enterPassword(password);
+    @And("I enable {string} checkbox")
+    public void enableCheckbox(String checkboxText) {
+        if (checkboxText.equalsIgnoreCase("Remember me on this computer")) {
+            login.enableRememberMeCheckbox();
+        } else {
+            Assert.fail("Unknown checkbox: " + checkboxText);
+        }
     }
 
-    @When("User enters special characters {string} in username field")
-    public void userEntersSpecialCharactersInUsernameField(String characters) {
-        LoggerUtil.info("Entering special characters '" + characters + "' in username field.");
-        loginPage.enterUsername(characters);
-        loginPage.enterPassword(ConfigReader.getProperty("password")); // Use a valid password to allow submission
+    @And("I accept the remember me alerts")
+    public void handleRememberMeAlerts() {
+        login.handleRememberMeAlerts();
     }
 
-    @When("User enters XSS payload {string} in input fields")
-    public void userEntersXSSPayloadInInputFields(String payload) {
-        LoggerUtil.info("Entering XSS payload '" + payload + "' in input fields.");
-        loginPage.enterUsername(payload);
-        loginPage.enterPassword(payload);
+    @And("I navigate to the login page again")
+    public void navigateToLoginAgain() {
+        driver.get("https://webapps.tekstac.com/FlightBooking/login.html");
     }
 
-    @When("User enters special characters {string} in password field")
-    public void userEntersSpecialCharactersInPasswordField(String characters) {
-        LoggerUtil.info("Entering special characters '" + characters + "' in password field.");
-        loginPage.enterUsername(ConfigReader.getProperty("username")); // Use a valid username to allow submission
-        loginPage.enterPassword(characters);
+
+    @When("I click the {string} link")
+    public void iClickTheLink(String linkText) {
+        if (linkText.equalsIgnoreCase("Forgot Password")) {
+            login.clickForgotPasswordLink();
+        } else {
+            Assert.fail("Unknown link: " + linkText);
+        }
     }
 
-    @Then("An error message should appear")
-    public void anErrorMessageShouldAppear() {
-        LoggerUtil.info("Verifying an error message appears.");
-        String errorMessage = loginPage.getErrorMessage();
-        Assert.assertNotNull(errorMessage, "Error message did not appear.");
-        Assert.assertFalse(errorMessage.isEmpty(), "Error message is empty.");
+    @Then("I should be redirected to the password reset page")
+    public void iShouldBeRedirectedToResetPage() {
+        Assert.assertTrue("Did not navigate to reset password page.", login.isOnResetPasswordPage());
     }
-
-    @Then("An error message for {string} field should appear")
-    public void anErrorMessageForFieldShouldAppear(String fieldName) {
-        LoggerUtil.info("Verifying error message for " + fieldName + " field.");
-        String errorMessage = loginPage.getErrorMessage();
-        Assert.assertNotNull(errorMessage, "Error message did not appear for " + fieldName + ".");
-        Assert.assertTrue(errorMessage.toLowerCase().contains(fieldName.toLowerCase()) || errorMessage.toLowerCase().contains("required"),
-                "Error message for " + fieldName + " is not relevant or not found: " + errorMessage);
-    }
-
-    @And("Leaves captcha field empty")
-    public void leavesCaptchaFieldEmpty() {
-        LoggerUtil.info("Leaving captcha field empty.");
-        loginPage.enterCaptcha("");
-    }
-
-    @And("Enters invalid captcha {string}")
-    public void entersInvalidCaptcha(String captcha) {
-        LoggerUtil.info("Entering invalid captcha: " + captcha);
-        loginPage.enterCaptcha("captcha");
-    }
-
-    @And("Enters valid captcha {string}")
-    public void entersValidCaptcha(String captcha) {
-        LoggerUtil.info("Entering valid captcha: " + captcha);
-        loginPage.enterCaptcha();
-    }
-
 }

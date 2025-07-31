@@ -10,10 +10,9 @@ import org.testng.annotations.DataProvider;
         plugin = {"pretty", "html:target/cucumber-reports/cucumber-html-report.html",
                 "json:target/cucumber-reports/cucumber.json",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}, // Reporting plugins
-        monochrome = true, // Readable console output
-        dryRun = false, // True to check if all steps have definitions but don't execute
-        tags = "@Login or @FlightBooking" // Use tags to run specific features/scenarios. Remove for all.
+        monochrome = true
 )
+
 public class TestRunner extends AbstractTestNGCucumberTests {
     @Override
     @DataProvider(parallel = true) // Enables parallel execution of scenarios
