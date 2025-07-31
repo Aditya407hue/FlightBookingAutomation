@@ -15,7 +15,7 @@ public class FlightEnquiryStepDefinition {
 
     @Given("User is on the enquiry form page")
     public void user_is_on_the_enquiry_form_page() {
-        driver.get("https://webapps.tekstac.com/ContactForm/");
+        driver.get("https://webapps.tekstac.com/FlightBooking/contactus.html");
     }
 
     @When("User submits the form with all fields blank")
