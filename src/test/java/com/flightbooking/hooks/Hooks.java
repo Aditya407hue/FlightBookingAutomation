@@ -3,14 +3,11 @@ package com.flightbooking.hooks;
 import java.io.IOException;
 import java.util.Properties;
 
+import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
 import com.flightbooking.utils.WebDriverFactory;
 
 public class Hooks {
@@ -30,13 +27,6 @@ public class Hooks {
 
     }
 
-
-    @After
-    public void tearDown() {
-        driver.quit();
-    }
-
-
     @AfterStep
     public void addScreenshot(Scenario scenario) {
         if (scenario.isFailed()) {
@@ -48,5 +38,10 @@ public class Hooks {
                 System.err.println("Screenshot capture failed: " + e.getMessage());
             }
         }
+    }
+
+    @AfterAll
+    public void tearDown() {
+        driver.quit();
     }
 }

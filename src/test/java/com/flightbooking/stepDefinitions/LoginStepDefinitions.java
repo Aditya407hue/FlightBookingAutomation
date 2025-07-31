@@ -19,8 +19,12 @@ import java.time.Duration;
 public class LoginStepDefinitions {
 
     WebDriver driver = com.flightbooking.utils.WebDriverFactory.getDriver();
-    LoginPage login = new LoginPage(driver);
+    LoginPage login;
 
+    @Given("Start browser and navigate to login page")
+    public void start_browser() {
+        login = new LoginPage(driver);
+    }
     @Given("I open the browser")
     public void openBrowser() {
         // Already handled in Hooks.java

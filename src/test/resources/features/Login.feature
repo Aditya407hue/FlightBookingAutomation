@@ -1,5 +1,7 @@
-Feature: Login
-
+@Login
+Feature: Login Functionality
+  Background:
+    Given Start browser and navigate to the login page
   @Login
   Scenario: Successful Login with Valid Credentials (TC-UI-LOGIN-001)
     Given I open the browser
