@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
 
+
 public class FlightEnquiryPage {
 
     WebDriver driver;
@@ -16,67 +17,75 @@ public class FlightEnquiryPage {
     public FlightEnquiryPage(WebDriver driver) {
         this.driver = driver;
     }
+    private By emailField = By.id("email");
+    private By nameField = By.id("name");
+    private By phoneField = By.id("phone");
+    private By subjectField = By.id("subject");
+    private By messageField = By.id("message");
 
-    // Locators
-    By nameField = By.id("name");
-    By emailField = By.id("email");
-    By phoneField = By.id("phone");
-    By subjectField = By.id("subject");
-    By messageField = By.id("message");
-    By submitButton = By.id("submit");
+    private By sendButton = By.id("submit");
+    private By errorMessage = By.id("emailError");
+    private By successMsg = By.id("success-msg");
+    private By errorMsgName = By.id("nameError");
+    private By errorMsgPhone = By.id("phoneError");
 
-    By nameError = By.id("nameError");
-    By emailError = By.id("emailError");
-    By phoneError = By.id("phoneError");
-    By successMsg = By.id("success-msg");
-
-    // Field actions
-    public void enterName(String name) {
-        driver.findElement(nameField).clear();
-        driver.findElement(nameField).sendKeys(name);
-    }
-
+    // Methods
     public void enterEmail(String email) {
         driver.findElement(emailField).clear();
         driver.findElement(emailField).sendKeys(email);
     }
 
+    public void enterName(String name) {
+        driver.findElement(nameField).clear();
+        driver.findElement(nameField).sendKeys(name);
+    }
     public void enterPhone(String phone) {
         driver.findElement(phoneField).clear();
         driver.findElement(phoneField).sendKeys(phone);
     }
-
-    public void enterSubject(String subject) {
+    public void enterSubject(String sub) {
         driver.findElement(subjectField).clear();
-        driver.findElement(subjectField).sendKeys(subject);
+        driver.findElement(subjectField).sendKeys(sub);
     }
 
-    public void enterMessage(String message) {
+
+    public void enterMsg(String msg) {
         driver.findElement(messageField).clear();
-        driver.findElement(messageField).sendKeys(message);
+        driver.findElement(messageField).sendKeys(msg);
     }
 
-    public void clickSubmit() throws InterruptedException {
-        Thread.sleep(2000); // For stability before clicking
-        driver.findElement(submitButton).click();
+    public boolean getErrMsgName() {
+        boolean exists = !driver.findElements(errorMsgName).isEmpty();
+        boolean visible = exists && driver.findElement(errorMsgName).isDisplayed();  // ✅ use correct locator
+        System.out.println("Name error element exists: " + exists + ", visible: " + visible);
+        return visible;
     }
 
-    // Error message checks
-    public boolean isNameErrorVisible() {
-        return isElementVisible(nameError);
+
+
+    public boolean getErrMsgPhone() {
+        boolean exists = driver.findElements(errorMsgPhone).size() > 0;
+        boolean visible = exists && driver.findElement(errorMsgPhone).isDisplayed();
+        System.out.println("Phone error element exists: " + exists + ", visible: " + visible);
+        return visible;
     }
 
-    public boolean isEmailErrorVisible() {
-        return isElementVisible(emailError);
+
+
+    public void clickSend() throws InterruptedException{
+        Thread.sleep(3000);
+        driver.findElement(sendButton).click();
     }
 
-    public boolean isPhoneErrorVisible() {
-        return isElementVisible(phoneError);
+    public boolean isErrorMessageDisplayed() {
+        boolean exists = !driver.findElements(errorMessage).isEmpty();
+        boolean visible = exists && driver.findElement(errorMessage).isDisplayed();
+        System.out.println("Error element exists: " + exists + ", visible: " + visible);
+        return visible;
     }
 
-    // Success message
-    public boolean isSuccessMessageVisible() throws TimeoutException {
-        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofSeconds(5));
+    public boolean isSuccessMessageVisible() {
+        WebDriverWait wait = new WebDriverWait(driver, java.time.Duration.ofMillis(50));
         WebElement success = wait.until(ExpectedConditions.visibilityOfElementLocated(successMsg));
         return success.isDisplayed();
     }
@@ -87,11 +96,5 @@ public class FlightEnquiryPage {
         } catch (NoSuchElementException e) {
             return "";
         }
-    }
-
-    // Reusable visibility check
-    private boolean isElementVisible(By locator) {
-        boolean exists = !driver.findElements(locator).isEmpty();
-        return exists && driver.findElement(locator).isDisplayed();
     }
 }

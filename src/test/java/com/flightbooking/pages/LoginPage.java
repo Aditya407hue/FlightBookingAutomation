@@ -99,9 +99,7 @@ public class LoginPage {
             rememberMeCheckbox.click();
             try {
                 driver.switchTo().alert().accept();
-                Thread.sleep(2000);
                 driver.switchTo().alert().accept();
-                Thread.sleep(5000);
             }catch(Exception e) {
                 System.out.println(e);
             }
