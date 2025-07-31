@@ -24,7 +24,8 @@ public class Hooks {
         driver=WebDriverFactory.initilizeBrowser();
 
         p=WebDriverFactory.getProperties();
-        driver.get(p.getProperty("baseURL"));
+        driver.get(p.getProperty("baseUrl"));
+        System.out.println("Browser opened with URL: " + p.getProperty("baseUrl"));
         driver.manage().window().maximize();
 
     }
@@ -32,9 +33,7 @@ public class Hooks {
 
     @After
     public void tearDown() {
-
         driver.quit();
-
     }
 
 
@@ -50,7 +49,4 @@ public class Hooks {
             }
         }
     }
-
-
-
 }

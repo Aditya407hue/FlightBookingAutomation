@@ -2,7 +2,6 @@ package com.flightbooking.stepDefinitions;
 
 import com.flightbooking.pages.LoginPage;
 import com.flightbooking.utils.ConfigReader;
-import com.flightbooking.utils.LoggerUtil;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

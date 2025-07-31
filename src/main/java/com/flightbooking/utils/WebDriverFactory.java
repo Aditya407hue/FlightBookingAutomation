@@ -19,7 +19,6 @@ public class WebDriverFactory {
     public static WebDriver initilizeBrowser() throws IOException
     {
         p = getProperties();
-        //String executionEnv = p.getProperty("execution_env");
         String browser = p.getProperty("browser").toLowerCase();
         switch(browser)
         {
@@ -50,7 +49,8 @@ public class WebDriverFactory {
 
     public static Properties getProperties() throws IOException
     {
-        FileReader file=new FileReader(System.getProperty("user.dir")+"\\src\\test\\resources\\config.properties");
+        FileReader file=new FileReader(System.getProperty("user.dir") + "/src/test/resources/config/config.properties");
+        //FileReader file=new FileReader("src/test/resources/config/config.properties");
         p=new Properties();
         p.load(file);
         return p;
