@@ -3,17 +3,8 @@ package com.flightbooking.stepDefinitions;
 import com.flightbooking.pages.FlightSearchPage;
 import com.flightbooking.utils.WebDriverFactory;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
+import org.testng.Assert;
 
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 public class FlightSearchStepDefinitions {
 
@@ -37,12 +28,12 @@ public class FlightSearchStepDefinitions {
 
     @Then("the system should display {string} in the results")
     public void verifyFlightDisplayed(String expected) {
-        Assert.assertTrue("Expected flight not displayed!", searchPage.isFlightDisplayed(expected));
+        Assert.assertTrue(searchPage.isFlightDisplayed(expected), "Expected flight not displayed!");
     }
 
     @Then("the system should not display any matching airline")
     public void verifyNoFlightDisplayed() {
-        Assert.assertTrue("Unexpected result found!", searchPage.isFlightNotDisplayed("SkyRider Express"));
+        Assert.assertTrue(searchPage.isFlightNotDisplayed("SkyRider Express"), "Unexpected result found!");
     }
 
     @When("I search by flight name {string}")
@@ -57,7 +48,7 @@ public class FlightSearchStepDefinitions {
 
     @Then("the system should display \"Data not found\" message")
     public void dataNotFoundForInvalidName() {
-        Assert.assertTrue("'Data not found' message not visible!", searchPage.isNoDataMessageVisible());
+        Assert.assertTrue(searchPage.isNoDataMessageVisible(), "'Data not found' message not visible!");
     }
 
     @When("I search by flight type {string}")

@@ -10,6 +10,7 @@ import org.testng.annotations.DataProvider;
         plugin = {"pretty",
                 "html:target/cucumber-reports/html/cucumber-html-report.html",
                 "json:target/cucumber-reports/json/cucumber.json",
+                "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:target/cucumber-reports/extent/extent-report.html"
                },
         monochrome = true
 

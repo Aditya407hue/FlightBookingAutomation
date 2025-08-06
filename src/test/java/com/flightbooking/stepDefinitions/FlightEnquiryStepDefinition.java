@@ -1,11 +1,9 @@
 package com.flightbooking.stepDefinitions;
 
 import com.flightbooking.pages.FlightEnquiryPage;
-import com.flightbooking.pages.LoginPage;
 import com.flightbooking.utils.WebDriverFactory;
 import io.cucumber.java.en.*;
-import org.junit.Assert;
-import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
@@ -71,23 +69,23 @@ public class FlightEnquiryStepDefinition {
 
     @Then("no error message should be displayed")
     public void no_error_message_should_be_displayed() {
-        Assert.assertFalse("Error message was displayed for a valid email!", enquiryPage.isErrorMessageDisplayed());
+        Assert.assertFalse(enquiryPage.isErrorMessageDisplayed(), "Error message was displayed for a valid email!");
     }
 
     @Then("an appropriate error message should be displayed with proper styling")
     public void appropriate_error_message_should_be_displayed() {
-        Assert.assertTrue("Error message was not displayed for invalid email!", enquiryPage.isErrorMessageDisplayed());
+        Assert.assertTrue(enquiryPage.isErrorMessageDisplayed(), "Error message was not displayed for invalid email!");
         //System.out.println("Error: " + enquiryPage.getErrorMessageText());
     }
 
     @And("the form submission should be prevented")
     public void form_submission_should_be_prevented() {
-        Assert.assertTrue("Form submitted even though email was invalid!", enquiryPage.isErrorMessageDisplayed());
+        Assert.assertTrue(enquiryPage.isErrorMessageDisplayed(), "Form submitted even though email was invalid!");
     }
 
     @And("the form should be submitted successfully")
     public void form_should_be_submitted_successfully() throws TimeoutException {
-        Assert.assertTrue("Form was not submitted successfully!", enquiryPage.isSuccessMessageVisible());
+        Assert.assertTrue(enquiryPage.isSuccessMessageVisible(), "Form was not submitted successfully!");
 
         System.out.println("Success Message: " + enquiryPage.getSuccessMessageText());
     }
@@ -95,12 +93,12 @@ public class FlightEnquiryStepDefinition {
 
     @Then("an error message should be displayed")
     public void name_error_msg() {
-        Assert.assertTrue("Error message for name was not displayed!", enquiryPage.getErrMsgName());
+        Assert.assertTrue(enquiryPage.getErrMsgName(), "Error message for name was not displayed!");
 
     }
     @And("the form submission should be prevented due to invalid name")
     public void form_submission_should_be_prevented_Name() {
-        Assert.assertTrue("Form submitted even though email was invalid!", enquiryPage.getErrMsgName());
+        Assert.assertTrue(enquiryPage.getErrMsgName(), "Form submitted even though email was invalid!");
     }
 
 
@@ -117,7 +115,7 @@ public class FlightEnquiryStepDefinition {
         } catch (TimeoutException e) {
             isSuccessVisible = false;
         }
-        Assert.assertFalse("Form was submitted even with invalid phone!", isSuccessVisible);
-        Assert.assertTrue("Error message not displayed for phone field!", enquiryPage.getErrMsgPhone());
+        Assert.assertFalse(isSuccessVisible, "Form was submitted even with invalid phone!");
+        Assert.assertTrue(enquiryPage.getErrMsgPhone(), "Error message not displayed for phone field!");
     }
 }

@@ -2,10 +2,10 @@ package com.flightbooking.utils;
 
 import java.io.FileReader;
 import java.io.IOException;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import java.time.Duration;
 import java.util.Properties;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -16,7 +16,7 @@ public class WebDriverFactory {
     static WebDriver driver;
     static Properties p;
 
-    public static WebDriver initilizeBrowser() throws IOException
+    public static org.openqa.selenium.WebDriver initilizeBrowser() throws IOException
     {
         p = getProperties();
         String browser = p.getProperty("browser").toLowerCase();

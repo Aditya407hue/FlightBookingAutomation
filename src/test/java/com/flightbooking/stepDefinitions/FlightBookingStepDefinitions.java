@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-import static org.junit.Assert.*;
+import static org.testng.Assert.*;
 
 public class FlightBookingStepDefinitions {
 
@@ -89,7 +89,7 @@ public class FlightBookingStepDefinitions {
 
     @Then("Booking should be successful")
     public void bookingSuccessful() {
-        assertTrue("Success message not displayed", page.isSuccessDisplayed());
+        assertTrue(page.isSuccessDisplayed(), "Success message not displayed");
     }
 
     @Then("Error message {string} should be displayed")
@@ -116,7 +116,7 @@ public class FlightBookingStepDefinitions {
     @Then("Duplicate booking warning should be displayed")
     public void verifyDuplicateWarning() {
         String error = page.getErrorMessage();
-        assertTrue("Duplicate booking warning not shown", error.contains("duplicate") || error.contains("already booked"));
+        assertTrue(error.contains("duplicate") || error.contains("already booked"), "Duplicate booking warning not shown");
     }
 
 }
