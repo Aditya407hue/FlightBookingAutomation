@@ -103,6 +103,27 @@ mvn test
 
 ---
 
+👥 Contributions
+This project wouldn’t have taken off without the dedication and collaboration of an exceptional team. Here’s a breakdown of who did what — and why this project soared:
+
+🚀 Anshika Chaudhary
+Role: Project Coordinator & QA Strategist
+Anshika played a pivotal role in overseeing the overall progress of the automation framework. She was instrumental in ensuring that timelines were met, blockers were resolved swiftly, and quality was never compromised. Her hands-on involvement in crafting the FlightBooking step definitions and her consistent motivation helped keep the team focused and productive throughout the development cycle.
+
+🔍 Aditya Srivastava
+Role: Feature Developer – Flight Booking & Search
+Aditya spearheaded the creation of the FlightBooking.feature file and took the lead in implementing the FlightSearch module. From scenario structuring to writing robust test steps, he ensured that user flows were automated accurately and efficiently. His detail-oriented approach helped cover complex edge cases and solidified the foundation of the test suite.
+
+🧪 Neeti Pandey
+Role: Module Owner – Enquiry & Bug Resolution Expert
+Neeti contributed significantly to the Enquiry module by developing its Gherkin feature file, corresponding step definitions, and Page Factory elements. She also worked extensively on the FlightSearch module and actively participated in debugging and fixing runtime issues. Her consistent contributions helped enhance the stability and reliability of the test framework.
+
+🛠️ Aditya Singh
+Role: Technical Lead – Setup, Integration & Module Development
+Aditya laid the groundwork for the project by setting up the core automation framework, managing the GitHub repository, and streamlining collaboration across the team. He developed the Login module and played a crucial role in implementing remaining critical modules. His strong focus on maintainability, modular design, and integration made sure the framework was CI/CD-ready and easy to scale.
+
+---
+
 ## 🤝 Contributing
 
 We 💙 contributions!  
