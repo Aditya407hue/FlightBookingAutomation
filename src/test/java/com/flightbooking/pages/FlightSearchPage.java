@@ -10,10 +10,10 @@ public class FlightSearchPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    @FindBy(id = "myInputnumber")
+    @FindBy(xpath="//input[@id='myInputnumber']")
     private WebElement flightNumberInput;
 
-    @FindBy(id = "myInputname")
+    @FindBy(xpath="//input[@id='myInputname']")
     private WebElement flightNameInput;
 
     @FindBy(id = "myInputtype")

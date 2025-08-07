@@ -9,6 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
 
+
 public class FlightBookingPage {
 
     WebDriver driver;
@@ -24,10 +25,10 @@ public class FlightBookingPage {
     @FindBy(id = "travelTo")
     public WebElement travelTo;
 
-    @FindBy(id = "departure")
+    @FindBy(name = "departure")
     public WebElement departureDate;
 
-    @FindBy(id = "selectclass")
+    @FindBy(xpath="//select[@id='selectclass']")
     public WebElement travelClass;
 
     @FindBy(id = "name")
@@ -39,7 +40,7 @@ public class FlightBookingPage {
     @FindBy(id = "phone")
     public WebElement phoneNumber;
 
-    @FindBy(id = "ticket-class-count")
+    @FindBy(xpath="//input[@id='ticket-class-count']")
     public WebElement passengerCount;
 
     @FindBy(id = "ticket-class-increase")
@@ -48,7 +49,7 @@ public class FlightBookingPage {
     @FindBy(id = "ticket-class-decrease")
     public WebElement minusButton;
 
-    @FindBy(id = "book-now")
+    @FindBy(xpath="//button[@id='book-now']")
     public WebElement bookButton;
 
     @FindBy(id = "error-msg")

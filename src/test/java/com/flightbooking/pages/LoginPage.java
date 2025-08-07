@@ -12,13 +12,13 @@ import static org.testng.Assert.assertTrue;
 public class LoginPage {
     WebDriver driver;
 
-    @FindBy(id = "username")
+    @FindBy(xpath="//input[@id='username']")
     WebElement usernameField;
 
     @FindBy(id = "password")
     WebElement passwordField;
 
-    @FindBy(id = "captcha")
+    @FindBy(name="captcha")
     WebElement captchaField;
 
     @FindBy(id = "captchaBtn")
@@ -33,7 +33,7 @@ public class LoginPage {
     @FindBy(id = "passwordErr")
     WebElement passwordError;
 
-    @FindBy(id = "login-submit")
+    @FindBy(xpath="(//input[@id='login-submit'])[1]")
     WebElement loginButton;
 
     @FindBy(id = "reset-password-link")

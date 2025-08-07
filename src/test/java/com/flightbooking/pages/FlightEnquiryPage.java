@@ -18,12 +18,12 @@ public class FlightEnquiryPage {
         this.driver = driver;
     }
     private By emailField = By.id("email");
-    private By nameField = By.id("name");
-    private By phoneField = By.id("phone");
-    private By subjectField = By.id("subject");
+    private By nameField = By.name("name");
+    private By phoneField = By.name("phone");
+    private By subjectField = By.xpath("//input[@id='subject']");
     private By messageField = By.id("message");
 
-    private By sendButton = By.id("submit");
+    private By sendButton = By.cssSelector("#submit");
     private By errorMessage = By.id("emailError");
     private By successMsg = By.id("success-msg");
     private By errorMsgName = By.id("nameError");
